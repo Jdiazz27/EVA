@@ -11,7 +11,7 @@
 El proyecto **EVA** es una implementación que hace uso de la API de **Ollama** para interactuar con modelos de lenguaje. Dentro del proyecto, utilizamos el modelo **Llama 3.2** 🦙💡 para procesar y generar texto de manera eficiente.
 
 ## Entregado a:  
-- **Curso**: Algoritmia II 🧑‍🏫  
+- **Curso**: Algoritmia II   
 - **Profesor**: Katherine Bermejo 👩‍🏫
 
 ## Tecnologías 🛠️
@@ -21,7 +21,7 @@ El proyecto **EVA** es una implementación que hace uso de la API de **Ollama** 
 
 ## Contribuciones 🤝
 
-Si deseas contribuir al proyecto, siéntete libre de abrir un **pull request**. ¡Todos son bienvenidos! 🚀
+Si deseas contribuir al proyecto, siéntete libre de abrir un **pull request**.
 
 ---
 
