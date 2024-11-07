@@ -19,6 +19,9 @@ El proyecto **EVA** es una implementación que hace uso de la API de **Ollama** 
 - **API**: Ollama API 🌐
 - **Lenguaje de modelo**: Llama 3.2 🧠
 
+## Forma de uso 🦾
+- **INICIO**
+
 ## Contribuciones 🤝
 
 Si deseas contribuir al proyecto, siéntete libre de abrir un **pull request**.
