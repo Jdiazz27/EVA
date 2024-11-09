@@ -1,7 +1,7 @@
 # Proyecto EVA 🤖✨
 
 **Autores:**
-- Juan Díaz 👨‍💻
+- Juan Diaz 👨‍💻
 - Manuela Maiguel 👩‍💻
 - Alejandra Sanz 👩‍💻
 - Laura Rodrigues 👩‍💻
