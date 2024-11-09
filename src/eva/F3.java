@@ -1,20 +1,34 @@
 package eva;
+
 import javax.swing.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import org.json.JSONObject;
 
 public class F3 extends javax.swing.JFrame {
 
     private DefaultListModel<String> listModel;
+    private F2 historialFrame;
 
     public F3() {
         initComponents();
         listModel = new DefaultListModel<>();
         jList1.setModel(listModel);
         
+        setLocationRelativeTo(null);
+
+    }
+
+    public F3(F2 historialFrame) {
+        this.historialFrame = historialFrame;
+        initComponents();
+        listModel = new DefaultListModel<>();
+        jList1.setModel(listModel);
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -121,19 +135,24 @@ public class F3 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnfinActionPerformed
 
     private void btnfinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnfinMouseClicked
-        int contadorConversaciones = 0;
-        String[][] conversaciones = new String[10][listModel.getSize()];
-        if (contadorConversaciones < 10) {
-            for (int i = 0; i < listModel.getSize(); i++) {
-                conversaciones[contadorConversaciones][i] = listModel.getElementAt(i);
-            }
-            contadorConversaciones++; // Incrementar el contador de conversaciones
-        }
-        // Pasar la matriz de conversaciones a F2 y abrir el JFrame F2
-        F2 frame = new F2(conversaciones);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        dispose(); // Cerrar F3
+       // Crear una nueva lista de conversaciones para el historial si no existe
+    if (historialFrame == null) {
+        ArrayList<String[]> historialConversaciones = new ArrayList<>();
+        historialFrame = new F2(historialConversaciones);
+    }
+
+    // Crear una nueva conversación a partir de los mensajes actuales en `jList1`
+    String[] nuevaConversacion = new String[listModel.getSize()];
+    for (int i = 0; i < listModel.getSize(); i++) {
+        nuevaConversacion[i] = listModel.getElementAt(i);
+    }
+
+    // Añadir la conversación al historial y abrir `F2`
+    historialFrame.agregarConversacion(nuevaConversacion);
+    historialFrame.setVisible(true);
+
+    // Cerrar la ventana actual de `F3`
+    dispose();
     }//GEN-LAST:event_btnfinMouseClicked
 
     private void btnatrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnatrasMouseClicked
@@ -157,7 +176,7 @@ public class F3 extends javax.swing.JFrame {
                     String promptText = userInput;
                     try {
                         // Establece la URL a la que se va a hacer la solicitud HTTP POST (servidor local en el puerto 11434).
-                            URL url = new URL("http://localhost:11434/api/generate");
+                        URL url = new URL("http://localhost:11434/api/generate");
                         // Configura la conexión HTTP para realizar una solicitud POST.
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setRequestMethod("POST"); // Define el método POST.
@@ -196,6 +215,7 @@ public class F3 extends javax.swing.JFrame {
                     }
                     return null;
                 }
+
                 @Override
                 protected void process(java.util.List<String> chunks) {
                     // El método 'process' se llama cuando se invoca 'publish'.

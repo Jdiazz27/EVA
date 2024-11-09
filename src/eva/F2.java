@@ -1,4 +1,6 @@
 package eva;
+
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -8,25 +10,54 @@ import javax.swing.JOptionPane;
 public class F2 extends javax.swing.JFrame {
 
     private DefaultListModel<String> listModel;
-    private String[][] conversaciones;
+    private ArrayList<String[]> conversaciones;
 
     // Constructor que acepta la matriz de conversaciones
-    public F2(String[][] conversaciones) {
-        this.conversaciones = conversaciones; // Almacena la matriz de conversaciones
+    public F2(ArrayList<String[]> conversaciones) {
+        this.conversaciones = (conversaciones != null) ? conversaciones : new ArrayList<>();
         initComponents();
         listModel = new DefaultListModel<>();
         jList1.setModel(listModel);
-        // Cargar las conversaciones en el JList
         cargarConversaciones();
+        
+        setLocationRelativeTo(null);
     }
 
     // Método que carga las conversaciones en el JList
     private void cargarConversaciones() {
-        for (int i = 0; i < conversaciones.length; i++) {
-            if (conversaciones[i][0] != null) { // Si hay una conversación en esa fila
-                listModel.addElement("chat # " + (i + 1));
+        listModel.clear(); // Limpiar antes de cargar
+        for (int i = 0; i < conversaciones.size(); i++) {
+            listModel.addElement("Chat #" + (i + 1));
+        }
+    }
+
+    private void abrirChatSeleccionado() {
+        int selectedIndex = jList1.getSelectedIndex(); // Obtener índice seleccionado
+        if (selectedIndex != -1) {
+            mostrarContenidoChat(selectedIndex);
+        } else {
+            mostrarMensajeDialogo("Seleccione un chat para abrir.", "Ningún chat seleccionado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void mostrarContenidoChat(int selectedIndex) {
+        String[] chatSeleccionado = conversaciones.get(selectedIndex);
+        StringBuilder chatContent = new StringBuilder();
+        for (String mensaje : chatSeleccionado) {
+            if (mensaje != null) {
+                chatContent.append(mensaje).append("\n");
             }
         }
+        mostrarMensajeDialogo(chatContent.toString(), "Contenido del Chat #" + (selectedIndex + 1), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void mostrarMensajeDialogo(String mensaje, String titulo, int tipoMensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, titulo, tipoMensaje);
+    }
+
+    public void agregarConversacion(String[] nuevaConversacion) {
+        conversaciones.add(nuevaConversacion);
+        cargarConversaciones();
     }
 
     /**
@@ -175,11 +206,12 @@ public class F2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoMouseClicked
-  
+        F3 nuevoChat = new F3(this);
+        nuevoChat.setVisible(true);
     }//GEN-LAST:event_btnNuevoMouseClicked
 
     private void btnirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnirMouseClicked
-        // TODO add your handling code here:
+        abrirChatSeleccionado();
     }//GEN-LAST:event_btnirMouseClicked
 
     /**
@@ -213,9 +245,8 @@ public class F2 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 // Crea una matriz de conversaciones de ejemplo
-                String[][] conversaciones = new String[10][2];
-                conversaciones[0][0] = "Hola"; // Agrega una conversación de ejemplo
-
+                ArrayList<String[]> conversaciones = new ArrayList<>();
+                conversaciones.add(new String[]{"Hola"}); // Ejemplo de una conversación
                 // Pasa la matriz de conversaciones al constructor de F2
                 new F2(conversaciones).setVisible(true);
             }
