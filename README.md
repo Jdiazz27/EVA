@@ -14,8 +14,11 @@ El proyecto **EVA** es una implementación que hace uso de la API de **Ollama** 
 - **Curso**: Algoritmia II   
 - **Profesor**: Katherine Bermejo 👩‍🏫
 
-# 🚀 Dependencias
+## Tecnologías 🛠️
+- **API**: Ollama API 🌐
+- **Lenguaje de modelo**: Llama 3.2 🧠
 
+# 🚀 Dependencias
 Para poder ejecutar este proyecto, asegúrate de cumplir con los siguientes requisitos:
 
 ## 1️⃣ Instalar la API de Ollama
@@ -31,11 +34,6 @@ Si encuentras algún error relacionado con JSON, sigue estos pasos para integrar
 2. Selecciona **Properties**.
 3. Ve a la pestaña **Libraries**.
 4. Haz clic en **Classpath (+)** y selecciona **Add JAR/Folder**.
-
-  
-## Tecnologías 🛠️
-- **API**: Ollama API 🌐
-- **Lenguaje de modelo**: Llama 3.2 🧠
 
 ## Forma de uso 🦾  
 1. Instala las dependencias necesarias para ejecutar el proyecto, asegurándote de que tienes acceso a la API de Ollama y al modelo Llama 3.2.  
