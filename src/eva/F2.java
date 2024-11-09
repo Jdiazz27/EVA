@@ -19,16 +19,22 @@ public class F2 extends javax.swing.JFrame {
         listModel = new DefaultListModel<>();
         jList1.setModel(listModel);
         cargarConversaciones();
-        
+
         setLocationRelativeTo(null);
+    }
+
+    private void cargarConversacionesRecursivo(int index) {
+        if (index >= conversaciones.size()) {
+            return; // Caso base: detener si el índice excede el tamaño de la lista
+        }
+        listModel.addElement("Chat #" + (index + 1)); // Agregar el chat actual
+        cargarConversacionesRecursivo(index + 1); // Llamada recursiva al siguiente índice
     }
 
     // Método que carga las conversaciones en el JList
     private void cargarConversaciones() {
         listModel.clear(); // Limpiar antes de cargar
-        for (int i = 0; i < conversaciones.size(); i++) {
-            listModel.addElement("Chat #" + (i + 1));
-        }
+        cargarConversacionesRecursivo(0);
     }
 
     private void abrirChatSeleccionado() {
@@ -40,15 +46,18 @@ public class F2 extends javax.swing.JFrame {
         }
     }
 
+    private String ContenidoChat(String[] chat, int index) {
+        if (index >= chat.length) {
+            return ""; // Caso base: si el índice está fuera de los límites, retorna cadena vacía.
+        }
+        String mensajeActual = (chat[index] != null) ? chat[index] + "\n" : "";
+        return mensajeActual + ContenidoChat(chat, index + 1); // Llamada recursiva con índice incrementado.
+    }
+
     private void mostrarContenidoChat(int selectedIndex) {
         String[] chatSeleccionado = conversaciones.get(selectedIndex);
-        StringBuilder chatContent = new StringBuilder();
-        for (String mensaje : chatSeleccionado) {
-            if (mensaje != null) {
-                chatContent.append(mensaje).append("\n");
-            }
-        }
-        mostrarMensajeDialogo(chatContent.toString(), "Contenido del Chat #" + (selectedIndex + 1), JOptionPane.INFORMATION_MESSAGE);
+        String chatContenido = ContenidoChat(chatSeleccionado, 0);
+        mostrarMensajeDialogo(chatContenido, "Contenido del Chat #" + (selectedIndex + 1), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void mostrarMensajeDialogo(String mensaje, String titulo, int tipoMensaje) {

@@ -17,7 +17,7 @@ public class F3 extends javax.swing.JFrame {
         initComponents();
         listModel = new DefaultListModel<>();
         jList1.setModel(listModel);
-        
+
         setLocationRelativeTo(null);
 
     }
@@ -27,8 +27,16 @@ public class F3 extends javax.swing.JFrame {
         initComponents();
         listModel = new DefaultListModel<>();
         jList1.setModel(listModel);
-        
+
         setLocationRelativeTo(null);
+    }
+
+    private void copiarMensajesRecursivo(String[] nuevaConversacion, int index) {
+        if (index >= listModel.getSize()) { // Caso base: si index es igual al tamaño del listModel, terminar la recursión
+            return;
+        }
+        nuevaConversacion[index] = listModel.getElementAt(index);// Copiar el mensaje en el índice actual
+        copiarMensajesRecursivo(nuevaConversacion, index + 1); // Llamada recursiva con el siguiente índice
     }
 
     /**
@@ -135,24 +143,16 @@ public class F3 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnfinActionPerformed
 
     private void btnfinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnfinMouseClicked
-       // Crear una nueva lista de conversaciones para el historial si no existe
-    if (historialFrame == null) {
-        ArrayList<String[]> historialConversaciones = new ArrayList<>();
-        historialFrame = new F2(historialConversaciones);
-    }
-
-    // Crear una nueva conversación a partir de los mensajes actuales en `jList1`
-    String[] nuevaConversacion = new String[listModel.getSize()];
-    for (int i = 0; i < listModel.getSize(); i++) {
-        nuevaConversacion[i] = listModel.getElementAt(i);
-    }
-
-    // Añadir la conversación al historial y abrir `F2`
-    historialFrame.agregarConversacion(nuevaConversacion);
-    historialFrame.setVisible(true);
-
-    // Cerrar la ventana actual de `F3`
-    dispose();
+        // Crear una nueva lista de conversaciones para el historial si no existe
+        if (historialFrame == null) {
+            ArrayList<String[]> historialConversaciones = new ArrayList<>();
+            historialFrame = new F2(historialConversaciones);
+        }
+        String[] nuevaConversacion = new String[listModel.getSize()]; // Crear una nueva conversación de tamaño listModel.getSize()
+        copiarMensajesRecursivo(nuevaConversacion, 0); // Llamar al método recursivo para copiar los mensajes en nuevaConversacion
+        historialFrame.agregarConversacion(nuevaConversacion);// Añadir la conversación al historial y abrir `F2`
+        historialFrame.setVisible(true);
+        dispose();// Cerrar la ventana actual de `F3`
     }//GEN-LAST:event_btnfinMouseClicked
 
     private void btnatrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnatrasMouseClicked
