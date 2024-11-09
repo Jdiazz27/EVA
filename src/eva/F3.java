@@ -39,6 +39,67 @@ public class F3 extends javax.swing.JFrame {
         copiarMensajesRecursivo(nuevaConversacion, index + 1); // Llamada recursiva con el siguiente índice
     }
 
+    private void enviar(String userInput, int attempt) {
+        int maxRetries = 3; // Número máximo de intentos
+        if (attempt > maxRetries) {
+            publish("Error: No se pudo conectar después de " + maxRetries + " intentos.");
+            return;
+        }
+        new SwingWorker<Void, String>() {   //SwingWorker para ejecutar la solicitud en segundo plano
+            @Override
+            protected Void doInBackground() throws Exception {
+                String modelName = "llama3.2";
+                String promptText = userInput;
+                try {
+                    URL url = new URL("http://localhost:11434/api/generate");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json; utf-8");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+                    String jsonInputString = String.format("{\"model\": \"%s\", \"prompt\": \"%s\", \"stream\": false}", modelName, promptText);
+                    try ( OutputStream os = conn.getOutputStream()) {
+                        byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                        os.write(input, 0, input.length);
+                    }
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while ((line = in.readLine()) != null) {
+                            response.append(line);
+                        }
+                        in.close();
+                        JSONObject jsonResponse = new JSONObject(response.toString());
+                        String responseText = jsonResponse.getString("response");
+                        publish("Eva: " + responseText);
+                    } else {
+                        publish("Error: Código de respuesta " + responseCode);
+                        // Llamada recursiva si no fue exitoso
+                        enviar(userInput, attempt + 1);
+                    }
+                } catch (IOException e) {
+                    publish("Error: " + e.getMessage());
+                    // Llamada recursiva si hubo una excepción
+                    enviar(userInput, attempt + 1);
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                for (String message : chunks) {
+                    SwingUtilities.invokeLater(() -> listModel.addElement(message));
+                }
+            }
+        }.execute();
+    }
+
+    private void publish(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -163,68 +224,11 @@ public class F3 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnatrasMouseClicked
 
     private void btnenviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnenviarMouseClicked
-        String userInput = txtbot.getText();// Obtiene el texto que el usuario ha escrito en el campo de texto 'txtbot'.
-        if (!userInput.trim().isEmpty()) {// Verifica que el texto no esté vacío o compuesto solo de espacios.
-            listModel.addElement("Tú: " + userInput);// Agrega el mensaje del usuario al modelo de la lista, mostrando quién lo envió (en este caso, "Tú").
-            txtbot.setText("");// Limpia el campo de texto del cuadro de entrada para que esté listo para el siguiente input del usuario.
-            new SwingWorker<Void, String>() {// Aquí se inicia un SwingWorker, que permite ejecutar código en segundo plano sin bloquear la interfaz gráfica.
-                @Override
-                protected Void doInBackground() throws Exception {
-                    // Establece el nombre del modelo que se usará en la solicitud (en este caso, "llama3.2").
-                    String modelName = "llama3.2";
-                    // Toma el input del usuario que será enviado como prompt al servidor.
-                    String promptText = userInput;
-                    try {
-                        // Establece la URL a la que se va a hacer la solicitud HTTP POST (servidor local en el puerto 11434).
-                        URL url = new URL("http://localhost:11434/api/generate");
-                        // Configura la conexión HTTP para realizar una solicitud POST.
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setRequestMethod("POST"); // Define el método POST.
-                        conn.setRequestProperty("Content-Type", "application/json; utf-8"); // Define el tipo de contenido como JSON.
-                        conn.setRequestProperty("Accept", "application/json"); // Especifica que espera recibir una respuesta en formato JSON.
-                        conn.setDoOutput(true);// Habilita el envío de datos en el cuerpo de la solicitud.
-                        // Crea el cuerpo de la solicitud en formato JSON con el modelo y el texto del usuario.
-                        String jsonInputString = String.format(
-                                "{\"model\": \"%s\", \"prompt\": \"%s\", \"stream\": false}", modelName, promptText);
-                        System.out.println("JSON Input: " + jsonInputString);// Imprime el JSON enviado para depuración.
-                        try ( OutputStream os = conn.getOutputStream()) { // Envío de los datos a través del flujo de salida.
-                            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                            os.write(input, 0, input.length);// Envía el cuerpo de la solicitud.
-                        }
-                        int responseCode = conn.getResponseCode(); // Lee el código de respuesta del servidor (200 si la solicitud fue exitosa).
-                        if (responseCode == HttpURLConnection.HTTP_OK) {// Si la respuesta es exitosa, lee el cuerpo de la respuesta.
-                            BufferedReader in = new BufferedReader(new InputStreamReader(
-                                    conn.getInputStream(), StandardCharsets.UTF_8));
-                            StringBuilder response = new StringBuilder();
-                            String line;
-                            while ((line = in.readLine()) != null) { // Lee la respuesta línea por línea.
-                                response.append(line);
-                            }
-                            in.close();// Cierra el flujo de entrada.
-                            JSONObject jsonResponse = new JSONObject(response.toString());// Convierte la respuesta en un objeto JSON y extrae el texto de respuesta.
-                            String responseText = jsonResponse.getString("response");
-                            // Publica el texto generado (respuestas de la IA) para ser procesado más adelante.
-                            publish("Eva: " + responseText);
-                        } else {
-                            // Publica un mensaje de error si el código de respuesta no es 200 (ok)
-                            publish("Error: Código de respuesta " + responseCode);
-                        }
-                    } catch (IOException e) {
-                        // Si ocurre una excepción durante la solicitud, publica el mensaje de error.
-                        publish("Error: " + e.getMessage());
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void process(java.util.List<String> chunks) {
-                    // El método 'process' se llama cuando se invoca 'publish'.
-                    // Toma los fragmentos publicados (respuestas o errores) y los añade al modelo de la lista.
-                    for (String message : chunks) {
-                        SwingUtilities.invokeLater(() -> listModel.addElement(message)); // Añade el mensaje a la lista
-                    }
-                }
-            }.execute();  // Ejecuta el SwingWorker, iniciando la tarea en segundo plano.
+        String userInput = txtbot.getText(); // Obtiene el texto que el usuario ha escrito en el campo de texto 'txtbot'.
+        if (!userInput.trim().isEmpty()) { // Verifica que el texto no esté vacío o compuesto solo de espacios.
+            listModel.addElement("Tú: " + userInput); // Agrega el mensaje del usuario al modelo de la lista.
+            txtbot.setText(""); // Limpia el campo de texto.
+            enviar(userInput, 1); // Llama al método recursivo para enviar la solicitud y manejar los reintentos
         }
     }//GEN-LAST:event_btnenviarMouseClicked
 
@@ -278,4 +282,5 @@ public class F3 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtbot;
     // End of variables declaration//GEN-END:variables
+
 }
