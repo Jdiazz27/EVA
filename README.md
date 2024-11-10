@@ -79,8 +79,8 @@ Para comenzar a trabajar en el proyecto EVA, primero necesitas clonar el reposit
       2. Ejecuta el siguiente comando para clonar el repositorio:
       ´´´bash
       git clone https://github.com/Jdiazz27/EVA.git
-      Esto descargará todo el código fuente del proyecto a tu computadora. Asegúrate de que el repositorio se haya clonado correctamente     
-      verificando que la carpeta EVA esté presente en tu directorio de trabajo.
+
+Esto descargará todo el código fuente del proyecto a tu computadora. Asegúrate de que el repositorio se haya clonado correctamente verificando que la carpeta EVA esté presente en tu directorio de trabajo.
 
 **2️⃣ Crear una Rama Nueva:**
 
@@ -93,37 +93,47 @@ Una de las mejores prácticas de colaboración es trabajar siempre en una rama s
       2. Crea una nueva rama con un nombre descriptivo. Por ejemplo, si estás trabajando en una nueva funcionalidad para mostrar el historial de       conversaciones, puedes llamarla historial-conversaciones:
       ´´´bash
       git checkout -b historial-conversaciones
+      
       *Este comando realiza dos acciones:*
       1. Crea la nueva rama (-b).
       2. Cambia a esa nueva rama para que puedas comenzar a trabajar en ella.
-      Es importante que utilices nombres de ramas descriptivos para que otros colaboradores entiendan de qué trata el trabajo que estás                realizando.
+
+Es importante que utilices nombres de ramas descriptivos para que otros colaboradores entiendan de qué trata el trabajo que estás realizando.
 
 **3️⃣ Hacer Cambios en el Código y Realizar un Commit:**
 Una vez que hayas realizado los cambios en el código o añadido nuevas funcionalidades, debes guardarlos en tu rama local mediante un commit. Los commits son puntos de control que permiten registrar las modificaciones realizadas.
 
   **Pasos para hacer un commit:**
+  
       1. Verifica los archivos modificados con el siguiente comando:
       bash
       git status
-      Esto te mostrará todos los archivos que has modificado o añadido.
+Esto te mostrará todos los archivos que has modificado o añadido.
+     
       2. Añade los archivos modificados al área de preparación (staging area):
       bash
       git add .
-      Este comando añade todos los archivos modificados. Si solo deseas añadir algunos archivos específicos, reemplaza el punto (.) por el             nombre del archivo, por ejemplo:
+      
+Este comando añade todos los archivos modificados. Si solo deseas añadir algunos archivos específicos, reemplaza el punto (.) por el nombre del archivo, por ejemplo:
+
       bash
       git add archivo1.java archivo2.java
+      
       3. Realiza un commit para guardar los cambios localmente. Asegúrate de que tu mensaje de commit sea claro y descriptivo:
       bash
       git commit -m "Agregado historial de conversaciones con funcionalidad de búsqueda"
-      Los mensajes de commit deben ser breves pero explicativos. En este ejemplo, el mensaje explica qué funcionalidad se ha agregado.
+
+Los mensajes de commit deben ser breves pero explicativos. En este ejemplo, el mensaje explica qué funcionalidad se ha agregado.
 
 **4️⃣ Subir la Rama a GitHub:**
 Una vez que hayas realizado el commit con los cambios, debes subir esa rama a tu repositorio remoto en GitHub para que otros colaboradores puedan ver y trabajar sobre tus modificaciones.
 
   1. Sube tu rama al repositorio de GitHub:
+     
      bash
      git push origin historial-conversaciones
-     Esto sube la rama que creaste (en este caso, historial-conversaciones) al repositorio remoto en GitHub.
+
+Esto sube la rama que creaste (en este caso, historial-conversaciones) al repositorio remoto en GitHub.
 
 **5️⃣ Crear un Pull Request (PR):**
 Cuando hayas terminado de trabajar en una funcionalidad o corrección, y hayas subido tus cambios a tu repositorio remoto, el siguiente paso es crear un Pull Request (PR). Este es el proceso de solicitar que tus cambios sean revisados y, eventualmente, fusionados (merge) a la rama principal del proyecto.
@@ -133,9 +143,13 @@ Cuando hayas terminado de trabajar en una funcionalidad o corrección, y hayas s
       1. Ve a tu repositorio en GitHub (por ejemplo, https://github.com/Jdiazz27/EVA).
       2. En la página principal del repositorio, verás una notificación que dice algo como "Compare & pull request" cuando hayas subido una     
       nueva rama. Haz clic en ese botón.
-      Si no ves la notificación, también puedes ir a la pestaña Pull requests en el repositorio y hacer clic en New Pull Request.
+
+Si no ves la notificación, también puedes ir a la pestaña Pull requests en el repositorio y hacer clic en New Pull Request.
+
       4. Selecciona la rama que creaste (por ejemplo, historial-conversaciones) y compárala con la rama principal (main o master).
-      Asegúrate de que los cambios que has realizado estén reflejados en la comparación.
+
+Asegúrate de que los cambios que has realizado estén reflejados en la comparación.
+
       5. Escribe un título claro y una descripción detallada del pull request, explicando los cambios que has realizado, cómo se deben probar, y          cualquier otra información relevante.
       6. Haz clic en Create Pull Request.
 
@@ -152,7 +166,8 @@ Es probable que recibas comentarios o sugerencias de otros colaboradores o mante
     3. Sube los cambios a GitHub para que se reflejen en el Pull Request:
     bash
     git push origin historial-conversaciones
-    Los cambios se añadirán automáticamente al Pull Request que ya has creado.
+
+Los cambios se añadirán automáticamente al Pull Request que ya has creado.
 
 **7️⃣ Resolver Conflictos de Fusión (Merge Conflicts):**
 Un conflicto de fusión ocurre cuando dos personas modifican el mismo archivo en la misma línea o parte del código. Git no puede fusionar estos cambios automáticamente y necesitarás resolver el conflicto manualmente.
