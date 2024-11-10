@@ -77,6 +77,7 @@ Para comenzar a trabajar en el proyecto EVA, primero necesitas clonar el reposit
       
       1. Abre tu terminal o línea de comandos.
       2. Ejecuta el siguiente comando para clonar el repositorio:
+      
       ´´´bash
       git clone https://github.com/Jdiazz27/EVA.git
 
@@ -87,10 +88,14 @@ Esto descargará todo el código fuente del proyecto a tu computadora. Asegúrat
 Una de las mejores prácticas de colaboración es trabajar siempre en una rama separada. La rama principal (main o master) debe mantenerse limpia, y cada colaborador debe realizar sus cambios en ramas separadas. De esta manera, puedes hacer modificaciones sin afectar la estabilidad del código en producción. 
 
   **Pasos para crear una nueva rama:**
+  
       1. Navega a la carpeta del proyecto (si aún no lo has hecho):
+      
       ´´´bash
       cd EVA
+      
       2. Crea una nueva rama con un nombre descriptivo. Por ejemplo, si estás trabajando en una nueva funcionalidad para mostrar el historial de       conversaciones, puedes llamarla historial-conversaciones:
+      
       ´´´bash
       git checkout -b historial-conversaciones
       
@@ -106,21 +111,21 @@ Una vez que hayas realizado los cambios en el código o añadido nuevas funciona
   **Pasos para hacer un commit:**
   
       1. Verifica los archivos modificados con el siguiente comando:
-      bash
+      ´´´bash
       git status
 Esto te mostrará todos los archivos que has modificado o añadido.
      
       2. Añade los archivos modificados al área de preparación (staging area):
-      bash
+      ´´´bash
       git add .
       
 Este comando añade todos los archivos modificados. Si solo deseas añadir algunos archivos específicos, reemplaza el punto (.) por el nombre del archivo, por ejemplo:
 
-      bash
+      ´´´bash
       git add archivo1.java archivo2.java
       
       3. Realiza un commit para guardar los cambios localmente. Asegúrate de que tu mensaje de commit sea claro y descriptivo:
-      bash
+      ´´´bash
       git commit -m "Agregado historial de conversaciones con funcionalidad de búsqueda"
 
 Los mensajes de commit deben ser breves pero explicativos. En este ejemplo, el mensaje explica qué funcionalidad se ha agregado.
@@ -130,7 +135,7 @@ Una vez que hayas realizado el commit con los cambios, debes subir esa rama a tu
 
   1. Sube tu rama al repositorio de GitHub:
      
-     bash
+     ´´´bash
      git push origin historial-conversaciones
 
 Esto sube la rama que creaste (en este caso, historial-conversaciones) al repositorio remoto en GitHub.
@@ -159,12 +164,16 @@ Una vez que hayas creado el Pull Request, los mantenedores del proyecto revisar�
 Es probable que recibas comentarios o sugerencias de otros colaboradores o mantenedores del proyecto. Cuando esto ocurra:
 
     1. Lee los comentarios y comprende lo que se requiere para mejorar tu código.
+    
     2. Realiza los cambios sugeridos en tu rama local y realiza un nuevo commit.
+    
     ´´´bash
     git add .
     git commit -m "Corregidos comentarios de la revisión"
+    
     3. Sube los cambios a GitHub para que se reflejen en el Pull Request:
-    bash
+    
+    ´´´bash
     git push origin historial-conversaciones
 
 Los cambios se añadirán automáticamente al Pull Request que ya has creado.
@@ -173,12 +182,14 @@ Los cambios se añadirán automáticamente al Pull Request que ya has creado.
 Un conflicto de fusión ocurre cuando dos personas modifican el mismo archivo en la misma línea o parte del código. Git no puede fusionar estos cambios automáticamente y necesitarás resolver el conflicto manualmente.
 
   **Cómo resolver un conflicto de fusión:**
-      1. Si intentas hacer un merge y hay un conflicto, Git te notificará. 
-      2. Abre los archivos en conflicto. En los archivos, verás las secciones marcadas con <<<<<<, ======, y >>>>>>. Estas marcas indican las          dos versiones del código en conflicto.
-      3. Edita los archivos para decidir qué cambios deben mantenerse y elimina las marcas de conflicto (<<<<<<, ======, >>>>>>).
-      4. Después de resolver los conflictos, añade los archivos modificados a la zona de preparación (staging area)
-      5. Realiza un nuevo commit para guardar la resolución del conflicto
-      6. Sube los cambios resueltos:
+  
+- Si intentas hacer un merge y hay un conflicto, Git te notificará. 
+- Abre los archivos en conflicto. En los archivos, verás las secciones marcadas con <<<<<<, ======, y >>>>>>. Estas marcas indican las dos versiones del código en conflicto.
+- Edita los archivos para decidir qué cambios deben mantenerse y elimina las marcas de conflicto (<<<<<<, ======, >>>>>>).
+- Después de resolver los conflictos, añade los archivos modificados a la zona de preparación (staging area)
+- Realiza un nuevo commit para guardar la resolución del conflicto
+- Sube los cambios resueltos:
+
 Tu Pull Request ahora estará listo para revisión nuevamente.
 
 **8️⃣ Mejores Prácticas de Colaboración en GitHub:**
