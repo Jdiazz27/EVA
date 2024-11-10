@@ -78,7 +78,7 @@ Para comenzar a trabajar en el proyecto EVA, primero necesitas clonar el reposit
       1. Abre tu terminal o línea de comandos.
       2. Ejecuta el siguiente comando para clonar el repositorio:
       
-      ´´´bash
+      ```bash  
       git clone https://github.com/Jdiazz27/EVA.git
 
 Esto descargará todo el código fuente del proyecto a tu computadora. Asegúrate de que el repositorio se haya clonado correctamente verificando que la carpeta EVA esté presente en tu directorio de trabajo.
@@ -91,12 +91,12 @@ Una de las mejores prácticas de colaboración es trabajar siempre en una rama s
   
       1. Navega a la carpeta del proyecto (si aún no lo has hecho):
       
-      ´´´bash
+      ```bash
       cd EVA
       
       2. Crea una nueva rama con un nombre descriptivo. Por ejemplo, si estás trabajando en una nueva funcionalidad para mostrar el historial de       conversaciones, puedes llamarla historial-conversaciones:
       
-      ´´´bash
+      ```bash
       git checkout -b historial-conversaciones
       
       *Este comando realiza dos acciones:*
@@ -111,21 +111,21 @@ Una vez que hayas realizado los cambios en el código o añadido nuevas funciona
   **Pasos para hacer un commit:**
   
       1. Verifica los archivos modificados con el siguiente comando:
-      ´´´bash
+      ```bash
       git status
 Esto te mostrará todos los archivos que has modificado o añadido.
      
       2. Añade los archivos modificados al área de preparación (staging area):
-      ´´´bash
+      ```bash
       git add .
       
 Este comando añade todos los archivos modificados. Si solo deseas añadir algunos archivos específicos, reemplaza el punto (.) por el nombre del archivo, por ejemplo:
 
-      ´´´bash
+      ```bash
       git add archivo1.java archivo2.java
       
       3. Realiza un commit para guardar los cambios localmente. Asegúrate de que tu mensaje de commit sea claro y descriptivo:
-      ´´´bash
+      ```bash
       git commit -m "Agregado historial de conversaciones con funcionalidad de búsqueda"
 
 Los mensajes de commit deben ser breves pero explicativos. En este ejemplo, el mensaje explica qué funcionalidad se ha agregado.
@@ -135,7 +135,7 @@ Una vez que hayas realizado el commit con los cambios, debes subir esa rama a tu
 
   1. Sube tu rama al repositorio de GitHub:
      
-     ´´´bash
+     ```bash
      git push origin historial-conversaciones
 
 Esto sube la rama que creaste (en este caso, historial-conversaciones) al repositorio remoto en GitHub.
@@ -167,13 +167,13 @@ Es probable que recibas comentarios o sugerencias de otros colaboradores o mante
     
     2. Realiza los cambios sugeridos en tu rama local y realiza un nuevo commit.
     
-    ´´´bash
+    ```bash
     git add .
     git commit -m "Corregidos comentarios de la revisión"
     
     3. Sube los cambios a GitHub para que se reflejen en el Pull Request:
     
-    ´´´bash
+    ```bash
     git push origin historial-conversaciones
 
 Los cambios se añadirán automáticamente al Pull Request que ya has creado.
