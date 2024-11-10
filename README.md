@@ -35,6 +35,16 @@ Si encuentras algún error relacionado con JSON, sigue estos pasos para integrar
 3. Ve a la pestaña **Libraries**.
 4. Haz clic en **Classpath (+)** y selecciona **Add JAR/Folder**.
 
+## Forma de uso 🦾  
+1. *Instala las dependencias necesarias* para ejecutar el proyecto, asegurándote de que tienes acceso a la API de Ollama y al modelo Llama 3.2.  
+2. *Configura las credenciales* de la API de Ollama en tu entorno, siguiendo las instrucciones de su documentación.  
+3. *Clona el repositorio en tu máquina local*. Si estás usando NetBeans, sigue estos pasos:
+   - Ve a *Team > Remote > Clone*.
+   - Introduce el siguiente enlace del repositorio:  
+     https://github.com/Jdiazz27/EVA.git
+4. *Interacción con EVA*: Una vez iniciado, puedes interactuar con el modelo a través de la interfaz que muestra las respuestas generadas en tiempo real.  
+5. *Personalización*: Modifica las configuraciones de entrada para ajustar el comportamiento de EVA según tus necesidades.
+
 
 ¡Esperamos que disfruten trabajando con EVA! 😄
 
